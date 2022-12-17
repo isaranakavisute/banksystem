@@ -91,6 +91,8 @@
             this.ResumeLayout(false);
             this.PerformLayout();
 
+            this.CenterToScreen();
+
         }
 
         #endregion
