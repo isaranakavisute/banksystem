@@ -77,6 +77,7 @@
             this.PerformLayout();
 
             this.CenterToScreen();
+            int i = 1;
 
         }
 
