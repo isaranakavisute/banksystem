@@ -29,7 +29,7 @@ namespace brandnewday
 
             Form home = new banksystem_app();
             home.Show();
-            int i=1;
+            int i=2;
         }
     }
 }
