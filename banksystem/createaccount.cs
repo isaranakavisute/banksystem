@@ -28,7 +28,6 @@ namespace brandnewday
             this.Hide();
 
             Form home = new banksystem_app();
-
             home.Show();
         }
     }
