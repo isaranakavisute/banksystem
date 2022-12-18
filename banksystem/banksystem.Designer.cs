@@ -1,4 +1,4 @@
-﻿namespace brandnewday
+﻿namespace banksystem
 {
     partial class banksystem_app
     {

@@ -58,7 +58,7 @@ namespace Data
 }
 
 
-namespace brandnewday
+namespace banksystem
 {
     partial class createaccount
     {

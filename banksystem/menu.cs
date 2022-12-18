@@ -1,6 +1,6 @@
 using banksystem;
 
-namespace brandnewday
+namespace banksystem
 {
     public partial class banksystem_app : Form
     {

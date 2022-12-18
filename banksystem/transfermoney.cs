@@ -80,7 +80,7 @@ namespace banksystem
         {
             this.Hide();
 
-            Form home = new brandnewday.banksystem_app();
+            Form home = new banksystem.banksystem_app();
             home.Show();
             //dbCon.Close();
 

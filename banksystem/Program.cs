@@ -1,4 +1,4 @@
-namespace brandnewday
+namespace banksystem
 {
     internal static class Program
     {
