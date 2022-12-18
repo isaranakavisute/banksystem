@@ -32,6 +32,7 @@
             this.createaccount_btn = new System.Windows.Forms.Button();
             this.deposity_btn = new System.Windows.Forms.Button();
             this.transfermoney_btn = new System.Windows.Forms.Button();
+            this.author_lbl = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // banksystem_lbl
@@ -85,13 +86,21 @@
             this.Controls.Add(this.transfermoney_btn);
             this.Controls.Add(this.deposity_btn);
             this.Controls.Add(this.createaccount_btn);
-            //this.Controls.Add(this.banksystem_lbl);
+            this.Controls.Add(this.author_lbl);
             this.Name = "banksystem_app";
             this.Text = "Bank System";
             this.ResumeLayout(false);
             this.PerformLayout();
 
             this.CenterToScreen();
+
+            this.author_lbl.AutoSize = true;
+            this.author_lbl.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.author_lbl.Location = new System.Drawing.Point(10, 10);
+            this.author_lbl.Name = "author_lbl";
+            this.author_lbl.Size = new System.Drawing.Size(126, 25);
+            this.author_lbl.TabIndex = 0;
+            this.author_lbl.Text = "Written by Isara Nakavisute";
 
         }
 
@@ -101,5 +110,6 @@
         private Button createaccount_btn;
         private Button deposity_btn;
         private Button transfermoney_btn;
+        private Label author_lbl;
     }
 }
