@@ -14,7 +14,7 @@ namespace brandnewday
     {
         public createaccount()
         {
-            InitializeComponent();
+            InitializeComponentAsync();
         }
         private Label createaccount_lbl;
 

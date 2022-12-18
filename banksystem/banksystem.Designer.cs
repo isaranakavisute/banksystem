@@ -47,7 +47,7 @@
             // createaccount_btn
             // 
             this.createaccount_btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.createaccount_btn.Location = new System.Drawing.Point(344, 207);
+            this.createaccount_btn.Location = new System.Drawing.Point(344, 157);
             this.createaccount_btn.Name = "createaccount_btn";
             this.createaccount_btn.Size = new System.Drawing.Size(160, 34);
             this.createaccount_btn.TabIndex = 1;
@@ -58,7 +58,7 @@
             // deposity_btn
             // 
             this.deposity_btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.deposity_btn.Location = new System.Drawing.Point(344, 274);
+            this.deposity_btn.Location = new System.Drawing.Point(344, 224);
             this.deposity_btn.Name = "deposity_btn";
             this.deposity_btn.Size = new System.Drawing.Size(160, 34);
             this.deposity_btn.TabIndex = 2;
@@ -69,7 +69,7 @@
             // transfermoney_btn
             // 
             this.transfermoney_btn.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.transfermoney_btn.Location = new System.Drawing.Point(344, 349);
+            this.transfermoney_btn.Location = new System.Drawing.Point(344, 299);
             this.transfermoney_btn.Name = "transfermoney_btn";
             this.transfermoney_btn.Size = new System.Drawing.Size(160, 34);
             this.transfermoney_btn.TabIndex = 3;
@@ -85,7 +85,7 @@
             this.Controls.Add(this.transfermoney_btn);
             this.Controls.Add(this.deposity_btn);
             this.Controls.Add(this.createaccount_btn);
-            this.Controls.Add(this.banksystem_lbl);
+            //this.Controls.Add(this.banksystem_lbl);
             this.Name = "banksystem_app";
             this.Text = "Bank System";
             this.ResumeLayout(false);

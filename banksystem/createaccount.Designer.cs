@@ -1,4 +1,64 @@
-﻿namespace brandnewday
+﻿using HtmlAgilityPack;
+using System.Net;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
+using OpenQA.Selenium.IE;
+using OpenQA.Selenium.Chrome;
+using MySqlConnector;
+using MySql.Data;
+using MySql.Data.MySqlClient;
+using Data;
+
+namespace Data
+{
+    public class DBConnection
+    {
+        private DBConnection()
+        {
+        }
+
+        public string Server { get; set; }
+        public string DatabaseName { get; set; }
+        public string UserName { get; set; }
+        public string Password { get; set; }
+
+        public MySql.Data.MySqlClient.MySqlConnection Connection { get; set; }
+
+        private static DBConnection _instance = null;
+        public static DBConnection Instance()
+        {
+            if (_instance == null)
+                _instance = new DBConnection();
+            return _instance;
+        }
+
+        public bool IsConnect()
+        {
+            if (Connection == null)
+            {
+                if (String.IsNullOrEmpty(DatabaseName))
+                    return false;
+                string connstring = string.Format("Server={0}; database={1}; UID={2}; password={3}", Server, DatabaseName, UserName, Password);
+                Connection = new MySql.Data.MySqlClient.MySqlConnection(connstring);
+                Connection.Open();
+            }
+
+            return true;
+        }
+
+        public void Close()
+        {
+            Connection.Close();
+        }
+    }
+}
+
+
+namespace brandnewday
 {
     partial class createaccount
     {
@@ -26,7 +86,18 @@
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
         /// </summary>
-        private void InitializeComponent()
+        /// 
+        public static async Task StartCrawlerasync(string html)
+        {
+            var httpClient = new HttpClient();
+            HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            await Task.Delay(5000);
+            htmlDocument.LoadHtml(html);
+            HtmlNode body24 = htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"demo\"]");
+            string content24 = body24.InnerHtml;
+            //newaccountnumber_lbl.Text = content24;
+        }
+        private async Task InitializeComponentAsync()
         {
             this.createaccount_lbl = new System.Windows.Forms.Label();
             this.newaccountnumber_lbl = new System.Windows.Forms.Label();
@@ -51,7 +122,43 @@
             this.newaccountnumber_lbl.Name = "newaccountnumber_lbl";
             this.newaccountnumber_lbl.Size = new System.Drawing.Size(200, 25);
             this.newaccountnumber_lbl.TabIndex = 1;
-            this.newaccountnumber_lbl.Text = "NL02ABNA2532528516";
+
+            string url = "http://randomiban.com/?country=Netherlands";
+            IWebDriver driver = new ChromeDriver();
+            driver.Manage().Window.Size = new System.Drawing.Size(0, 0);
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            driver.Navigate().GoToUrl(url);
+            var result = driver.FindElement(By.TagName("body")).GetAttribute("innerHTML");
+            var httpClient = new HttpClient();
+            HtmlAgilityPack.HtmlDocument htmlDocument = new HtmlAgilityPack.HtmlDocument();
+            htmlDocument.LoadHtml(result);
+            HtmlNode body24 = htmlDocument.DocumentNode.SelectSingleNode("//*[@id=\"demo\"]");
+            string content24 = body24.InnerHtml;
+            driver.Quit();
+            this.newaccountnumber_lbl.Text = content24;
+
+            var dbCon = DBConnection.Instance();
+            dbCon.Server = "153.92.215.169";
+            dbCon.DatabaseName = "chiangra_banksystem";
+            dbCon.UserName = "chiangra_isara";
+            dbCon.Password = "23153645hI";
+            if (dbCon.IsConnect())
+            {
+                //suppose col0 and col1 are defined as VARCHAR in the DB
+                string query = "insert into account(account_number,balance) values ('" + this.newaccountnumber_lbl.Text + "',0.0)";
+                var cmd = new MySql.Data.MySqlClient.MySqlCommand(query, dbCon.Connection);
+                var reader = cmd.ExecuteReader();
+                /*
+                while (reader.Read())
+                {
+                    string someStringFromColumnZero = reader.GetString(0);
+                    string someStringFromColumnOne = reader.GetString(1);
+                    Console.WriteLine(someStringFromColumnZero + "," + someStringFromColumnOne);
+                }
+                */
+                dbCon.Close();
+            }
+
             // 
             // home
             // 
@@ -75,10 +182,7 @@
             this.Text = "Create New Account";
             this.ResumeLayout(false);
             this.PerformLayout();
-
             this.CenterToScreen();
-            int i = 1;
-
         }
 
         #endregion
