@@ -39,12 +39,12 @@ namespace banksystem
             if (dbCon.IsConnect())
             {
               
-                string query1 = "update account set balance=balance-" + transferamount_tf.Text + "where account_number='" + fromaccount_tf.Text + "' and balance >= " + transferamount_tf.Text;
+                string query1 = "update account set balance=balance-" + transferamount_tf.Text + " where account_number='" + fromaccount_tf.Text + "' and balance >= " + transferamount_tf.Text;
                 var cmd1 = new MySql.Data.MySqlClient.MySqlCommand(query1, dbCon.Connection);
 
                 if (cmd1.ExecuteNonQuery() > 0)
                 {
-                    string query2 = "update account set balance=balance+" + transferamount_tf.Text + "where account_number='" + toaccount_tf.Text + "'";
+                    string query2 = "update account set balance=balance+" + transferamount_tf.Text + " where account_number='" + toaccount_tf.Text + "'";
                     var cmd2 = new MySql.Data.MySqlClient.MySqlCommand(query2, dbCon.Connection);
                     if (cmd2.ExecuteNonQuery() > 0)
                     {
