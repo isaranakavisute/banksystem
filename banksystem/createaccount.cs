@@ -26,6 +26,7 @@ namespace brandnewday
         private void home_Click(object sender, EventArgs e)
         {
             this.Hide();
+            
 
             Form home = new banksystem_app();
             home.Show();

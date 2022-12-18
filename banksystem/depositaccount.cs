@@ -72,16 +72,41 @@ namespace banksystem
         private void depositbtn_click(object sender, EventArgs e)
         {
             var dbCon = DBConnection.Instance();
+            if (dbCon.Connection!=null)
+            {
+                if (dbCon.Connection.State == ConnectionState.Closed)
+                {
+                    dbCon = DBConnection.Instance();
+                }
+            }
+            //else
+                //dbCon.Close();
+            
+               
+
             dbCon.Server = "153.92.215.169";
             dbCon.DatabaseName = "chiangra_banksystem";
             dbCon.UserName = "chiangra_isara";
             dbCon.Password = "23153645hI";
             if (dbCon.IsConnect())
             {
-                //suppose col0 and col1 are defined as VARCHAR in the DB
-                //string query = "insert into account(account_number,balance) values ('" + this.newaccountnumber_lbl.Text + "',0.0)";
-                //var cmd = new MySql.Data.MySqlClient.MySqlCommand(query, dbCon.Connection);
+                string amount = deposit_amount_tf.Text;
+                double amount_dbl = Convert.ToDouble(amount);
+                amount_dbl *= (100-0.1)/100.0; //fee = 0.1%
+                string query = "update account set balance=balance+" + amount_dbl + " where account_number='"+deposit_accountnumber_tf.Text+"'";
+                var cmd = new MySql.Data.MySqlClient.MySqlCommand(query, dbCon.Connection);
                 //var reader = cmd.ExecuteReader();
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    string message = "Deposit..successful";
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    string message = "Deposit..not successful";
+                    MessageBox.Show(message);
+                }
+                
                 /*
                 while (reader.Read())
                 {
@@ -91,6 +116,7 @@ namespace banksystem
                 }
                 */
                 //dbCon.Close();
+                home_button_Click(sender, e);
             }
         }
 
@@ -100,6 +126,7 @@ namespace banksystem
 
             Form home = new brandnewday.banksystem_app();
             home.Show();
+            //dbCon.Close();
         }
     }
 }

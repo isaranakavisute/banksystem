@@ -31,8 +31,13 @@ namespace brandnewday
 
         private void transfermoney_btn_Click(object sender, EventArgs e)
         {
-            string message = "Test3";
-            MessageBox.Show(message);
+            //string message = "Test3";
+            //MessageBox.Show(message);
+
+            Form transfermoney_frm = new transfermoney();
+            transfermoney_frm.Show();
+            this.Hide();
+            
 
         }
     }

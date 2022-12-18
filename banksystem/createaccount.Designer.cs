@@ -138,6 +138,17 @@ namespace brandnewday
             this.newaccountnumber_lbl.Text = content24;
 
             var dbCon = DBConnection.Instance();
+            if (dbCon.Connection != null)
+            {
+                if (dbCon.Connection.State == System.Data.ConnectionState.Closed)
+                {
+                    dbCon = DBConnection.Instance();
+                }
+
+            }
+            //else
+                //dbCon.Close();
+
             dbCon.Server = "153.92.215.169";
             dbCon.DatabaseName = "chiangra_banksystem";
             dbCon.UserName = "chiangra_isara";
@@ -147,7 +158,16 @@ namespace brandnewday
                 //suppose col0 and col1 are defined as VARCHAR in the DB
                 string query = "insert into account(account_number,balance) values ('" + this.newaccountnumber_lbl.Text + "',0.0)";
                 var cmd = new MySql.Data.MySqlClient.MySqlCommand(query, dbCon.Connection);
-                var reader = cmd.ExecuteReader();
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    string message = "Account creation..successful";
+                    MessageBox.Show(message);
+                }
+                else
+                {
+                    string message = "Account creation..not successful";
+                    MessageBox.Show(message);
+                }
                 /*
                 while (reader.Read())
                 {
@@ -156,7 +176,8 @@ namespace brandnewday
                     Console.WriteLine(someStringFromColumnZero + "," + someStringFromColumnOne);
                 }
                 */
-                dbCon.Close();
+                //dbCon.Connection.Close();
+                //dbCon.Close();
             }
 
             // 

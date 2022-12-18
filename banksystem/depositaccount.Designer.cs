@@ -155,6 +155,7 @@ namespace banksystem
             this.Text = "Deposit Account";
             this.ResumeLayout(false);
             this.PerformLayout();
+            this.CenterToScreen();
 
         }
 
